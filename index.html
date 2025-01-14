@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Préstamo</title>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        form {
+            background: white;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .logo {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .logo img {
+            max-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <h1>Formulario de Solicitud de Préstamo</h1>
+    <form id="loan-form">
+       
+ <label for="full-name">Nombre Completo:</label>
+        <input type="text" id="username" name="username" placeholder="Ingresa tu nombre completo" required>
+
+        <label for="id-number">Cédula de Identidad:</label>
+        <input type="text" id="id-number" name="id-number" placeholder="Ingresa tu número de cédula" required>
+
+        <label for="address">Domicilio:</label>
+        <input type="text" id="address" name="address" placeholder="Ingresa tu domicilio" required>
+
+        <label for="coordinates">Coordenadas:</label>
+        <input type="text" id="coordinates" name="coordinates" placeholder="Ingresa tus coordenadas">
+
+        <label for="phone">Teléfono:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Ingresa tu número de teléfono" required>
+
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+
+        <label for="amount">Monto Solicitado:</label>
+        <input type="number" id="amount" name="amount" placeholder="Ingresa el monto solicitado" required>
+
+        <label for="term">Plazo (en meses):</label>
+        <input type="number" id="term" name="term" placeholder="Ingresa el plazo en meses" required>
+
+        <label for="interest">Interés Mensual (%):</label>
+        <input type="number" id="interest" name="interest" value="15" readonly>
+
+        <label for="message">Motivo del Préstamo:</label>
+        <textarea id="message" name="message" placeholder="Describe el motivo del préstamo" required></textarea>
+
+        <button type="button" onclick="calculateLoan()">Calcular</button>
+
+        <div id="results">
+            <p>Total Cuotas: <span id="total-installments">0</span></p>
+            <p>Interés Total: <span id="total-interest">0</span> C$</p>
+            <p>Total a Pagar: <span id="total-payment">0</span> C$</p>
+            <p>Cuota Semanal: <span id="weekly-installment">0</span> C$</p>
+            <p>Cuota Quincenal: <span id="biweekly-installment">0</span> C$</p>
+            <p>Cuota Mensual: <span id="monthly-installment">0</span> C$</p>
+        </div>
+
+        <button type="submit">Enviar Solicitud</button>
+    </form>
+
+    <div class="container">
+        <p>&copy; 2025 Solicitud de Préstamos. Todos los derechos reservados.</p>
+    </div>
+
+    <script>
+        // Inicializar EmailJS usando la clave pública correcta
+        (function() {
+            emailjs.init("iJncNfz9C1aWPUdV4"); // Reemplaza con tu Public Key
+        })();
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const term = parseInt(document.getElementById('term').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest').value) || 0;
+
+            const totalInstallments = term * 4;
+            const totalInterest = (amount * (interestRate / 100)) * term;
+            const totalPayment = amount + totalInterest;
+            const weeklyInstallment = totalPayment / totalInstallments;
+            const biweeklyInstallment = weeklyInstallment * 2;
+            const monthlyInstallment = weeklyInstallment * 4;
+
+            document.getElementById('total-installments').innerText = totalInstallments;
+            document.getElementById('total-interest').innerText = totalInterest.toFixed(2);
+            document.getElementById('total-payment').innerText = totalPayment.toFixed(2);
+            document.getElementById('weekly-installment').innerText = weeklyInstallment.toFixed(2);
+            document.getElementById('biweekly-installment').innerText = biweeklyInstallment.toFixed(2);
+            document.getElementById('monthly-installment').innerText = monthlyInstallment.toFixed(2);
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById("loan-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Enviar el formulario con EmailJS
+            emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
+                .then(function(response) {
+                    alert('Solicitud enviada con éxito: ' + response.status);
+                }, function(error) {
+                    console.error("Error:", error); // Mostrar error en consola
+                    alert('Error al enviar la solicitud: ' + error.text); // Mensaje de error más detallado
+                });
+        });
+    </script>
+</body>
+</html>
