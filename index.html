@@ -78,6 +78,10 @@
         .logo img {
             max-width: 150px;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -121,7 +125,8 @@
 
         <div id="results">
             <p>Total Cuotas: <span id="total-installments">0</span></p>
-            
+            <p class="hidden">Interés Total: <span id="total-interest">0</span> C$</p>
+            <p class="hidden">Total a Pagar: <span id="total-payment">0</span> C$</p>
             <p>Cuota Semanal: <span id="weekly-installment">0</span> C$</p>
             <p>Cuota Quincenal: <span id="biweekly-installment">0</span> C$</p>
             <p>Cuota Mensual: <span id="monthly-installment">0</span> C$</p>
