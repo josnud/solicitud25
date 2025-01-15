@@ -22,6 +22,15 @@
             font-size: 20px;
         }
 
+        .logo {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .logo img {
+            max-width: 150px;
+        }
+
         form {
             background: white;
             max-width: 400px;
@@ -71,28 +80,18 @@
             margin-top: 20px;
         }
 
-        .logo {
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .logo img {
-            max-width: 150px;
-        }
-
         .hidden {
             display: none;
         }
     </style>
 </head>
 <body>
+    <h1>Formulario de Solicitud de Préstamo</h1>
     <div class="logo">
         <img src="logo.png" alt="Logo">
     </div>
-    <h1>Formulario de Solicitud de Préstamo</h1>
     <form id="loan-form">
-       
-        <label for="full-name">Nombre Completo:</label>
+        <label for="username">Nombre Completo:</label>
         <input type="text" id="username" name="username" placeholder="Ingresa tu nombre completo" required>
 
         <label for="id-number">Cédula de Identidad:</label>
@@ -126,8 +125,8 @@
 
         <div id="results">
             <p>Total Cuotas: <span id="total-installments">0</span></p>
-            <p class="hidden">Interés Total: <span id="total-interest">0</span> C$</p>
-            <p class="hidden">Total a Pagar: <span id="total-payment">0</span> C$</p>
+            <p>Interés Total: <span id="total-interest">0</span> C$</p>
+            <p>Total a Pagar: <span id="total-payment">0</span> C$</p>
             <p>Cuota Semanal: <span id="weekly-installment">0</span> C$</p>
             <p>Cuota Quincenal: <span id="biweekly-installment">0</span> C$</p>
             <p>Cuota Mensual: <span id="monthly-installment">0</span> C$</p>
@@ -170,13 +169,12 @@
         document.getElementById("loan-form").addEventListener("submit", function(event) {
             event.preventDefault();
 
-            // Enviar el formulario con EmailJS
             emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
                 .then(function(response) {
                     alert('Solicitud enviada con éxito: ' + response.status);
                 }, function(error) {
-                    console.error("Error:", error); // Mostrar error en consola
-                    alert('Error al enviar la solicitud: ' + error.text); // Mensaje de error más detallado
+                    console.error("Error:", error);
+                    alert('Error al enviar la solicitud: ' + error.text);
                 });
         });
     </script>
