@@ -47,7 +47,7 @@
             margin-bottom: 5px;
         }
 
-        input, textarea, button, select {
+        input, textarea, select, button {
             width: 100%;
             margin-bottom: 10px;
             padding: 5px;
@@ -91,6 +91,10 @@
         .container p {
             margin: 0;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -126,65 +130,78 @@
         <label for="interest">Interés Mensual (%):</label>
         <input type="number" id="interest" name="interest" value="15" readonly>
 
+        <label for="message">Motivo del Préstamo:</label>
+        <textarea id="message" name="message" placeholder="Describe el motivo del préstamo" required></textarea>
+
         <label for="income-type">Tipo de Ingresos:</label>
-        <select id="income-type" name="income-type" onchange="toggleIncomeFields()" required>
-            <option value="">Seleccione...</option>
-            <option value="negocio">Negocio</option>
-            <option value="asalariado">Asalariado</option>
+        <select id="income-type" name="income-type" required>
+            <option value="">Selecciona una opción</option>
+            <option value="business">Negocio</option>
+            <option value="salaried">Asalariado</option>
         </select>
 
-        <div id="business-fields" style="display:none;">
+        <div id="business-fields" class="hidden">
             <label for="business-name">Nombre del Negocio:</label>
-            <input type="text" id="business-name" name="business-name">
+            <input type="text" id="business-name" name="business-name" placeholder="Nombre del negocio">
 
-            <label for="business-address">Dirección del Negocio:</label>
-            <input type="text" id="business-address" name="business-address">
+            <label for="business-address">Dirección:</label>
+            <input type="text" id="business-address" name="business-address" placeholder="Dirección del negocio">
 
-            <label for="business-phone">Teléfono del Negocio:</label>
-            <input type="tel" id="business-phone" name="business-phone">
+            <label for="business-phone">Teléfono:</label>
+            <input type="tel" id="business-phone" name="business-phone" placeholder="Teléfono del negocio">
 
-            <label for="business-age">Antigüedad del Negocio (años):</label>
-            <input type="number" id="business-age" name="business-age">
+            <label for="business-years">Antigüedad del Negocio (años):</label>
+            <input type="number" id="business-years" name="business-years" placeholder="Años de antigüedad">
 
-            <label>Tipo de Negocio:</label>
-            <select id="business-type" name="business-type">
-                <option value="propio">Propio</option>
-                <option value="alquilado">Alquilado</option>
-                <option value="ambulante">Ambulante</option>
-            </select>
+            <label for="good-day">Día Bueno C$:</label>
+            <input type="number" id="good-day" name="good-day" placeholder="Ingresos de un día bueno">
+
+            <label for="regular-day">Día Regular C$:</label>
+            <input type="number" id="regular-day" name="regular-day" placeholder="Ingresos de un día regular">
+
+            <label for="bad-day">Día Malo C$:</label>
+            <input type="number" id="bad-day" name="bad-day" placeholder="Ingresos de un día malo">
+
+            <label for="business-type">Tipo de Negocio:</label>
+            <input type="text" id="business-type" name="business-type" placeholder="Tipo de negocio">
+
+            <label>Local del Negocio:</label>
+            <div>
+                <label><input type="checkbox" name="business-location" value="Propio"> Propio</label>
+                <label><input type="checkbox" name="business-location" value="Alquilado"> Alquilado</label>
+                <label><input type="checkbox" name="business-location" value="Ambulante"> Ambulante</label>
+            </div>
         </div>
 
-        <div id="employee-fields" style="display:none;">
+        <div id="salaried-fields" class="hidden">
             <label for="company-name">Nombre de la Empresa:</label>
-            <input type="text" id="company-name" name="company-name">
+            <input type="text" id="company-name" name="company-name" placeholder="Nombre de la empresa">
 
             <label for="company-address">Dirección de la Empresa:</label>
-            <input type="text" id="company-address" name="company-address">
+            <input type="text" id="company-address" name="company-address" placeholder="Dirección de la empresa">
 
             <label for="job-title">Cargo que Ocupa:</label>
-            <input type="text" id="job-title" name="job-title">
+            <input type="text" id="job-title" name="job-title" placeholder="Cargo que ocupa">
 
             <label for="monthly-salary">Salario Fijo Mensual:</label>
-            <input type="number" id="monthly-salary" name="monthly-salary">
+            <input type="number" id="monthly-salary" name="monthly-salary" placeholder="Salario fijo mensual">
 
-            <label for="work-years">Antigüedad Laboral (años):</label>
-            <input type="number" id="work-years" name="work-years">
+            <label for="job-years">Antigüedad Laboral (años):</label>
+            <input type="number" id="job-years" name="job-years" placeholder="Años de antigüedad laboral">
 
             <label for="salary-proof">Soporte de Salario:</label>
             <select id="salary-proof" name="salary-proof">
-                <option value="inss">Colilla INSS</option>
-                <option value="letter">Carta Salarial</option>
+                <option value="">Selecciona una opción</option>
+                <option value="colilla-inss">Colilla INSS</option>
+                <option value="carta-salarial">Carta Salarial</option>
             </select>
 
             <label for="company-phone">Teléfono de la Empresa:</label>
-            <input type="tel" id="company-phone" name="company-phone">
+            <input type="tel" id="company-phone" name="company-phone" placeholder="Teléfono de la empresa">
 
-            <label for="immediate-boss">Nombre del Jefe Inmediato:</label>
-            <input type="text" id="immediate-boss" name="immediate-boss">
+            <label for="immediate-supervisor">Nombre del Jefe Inmediato:</label>
+            <input type="text" id="immediate-supervisor" name="immediate-supervisor" placeholder="Nombre del jefe inmediato">
         </div>
-
-        <label for="message">Motivo del Préstamo:</label>
-        <textarea id="message" name="message" placeholder="Describe el motivo del préstamo" required></textarea>
 
         <button type="button" onclick="calculateLoan()">Calcular</button>
 
@@ -205,16 +222,30 @@
     </div>
 
     <script>
-        function toggleIncomeFields() {
-            const incomeType = document.getElementById('income-type').value;
-            document.getElementById('business-fields').style.display = incomeType === 'negocio' ? 'block' : 'none';
-            document.getElementById('employee-fields').style.display = incomeType === 'asalariado' ? 'block' : 'none';
-        }
-
-        // Scripts existentes
         (function() {
             emailjs.init("iJncNfz9C1aWPUdV4"); 
         })();
+
+        document.getElementById("income-type").addEventListener("change", function() {
+            const incomeType = this.value;
+            document.getElementById("business-fields").classList.add("hidden");
+            document.getElementById("salaried-fields").classList.add("hidden");
+
+            if (incomeType === "business") {
+                document.getElementById("business-fields").classList.remove("hidden");
+            } else if (incomeType === "salaried") {
+                document.getElementById("salaried-fields").classList.remove("hidden");
+            }
+        });
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const term = parseInt(document.getElementById('term').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest').value) || 0;
+
+            const totalInstallments = term * 4;
+            const total
+
 
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
