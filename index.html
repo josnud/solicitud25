@@ -17,14 +17,15 @@
             background-color: #007BFF;
             color: white;
             text-align: center;
-            padding: 20px 0;
+            padding: 10px 0;
             margin: 0;
+            font-size: 20px;
         }
 
         form {
             background: white;
             max-width: 400px;
-            margin: 30px auto;
+            margin: 10px auto;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -72,7 +73,7 @@
 
         .logo {
             text-align: center;
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
         .logo img {
@@ -88,7 +89,7 @@
     <div class="logo">
         <img src="logo.png" alt="Logo">
     </div>
-    <h1>Solicitud de Préstamo</h1>
+    <h1>Formulario de Solicitud de Préstamo</h1>
     <form id="loan-form">
        
         <label for="full-name">Nombre Completo:</label>
@@ -172,7 +173,7 @@
             // Enviar el formulario con EmailJS
             emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
                 .then(function(response) {
-                    alert('Su solicitud fue enviada exitosamente. Plazo estimado de respuesta es de 24 a 72 Horas, uno de nuestros asesores se pondra en contacto con tigo para detallar la resolucion del caso.: ' + response.status);
+                    alert('Solicitud enviada con éxito: ' + response.status);
                 }, function(error) {
                     console.error("Error:", error); // Mostrar error en consola
                     alert('Error al enviar la solicitud: ' + error.text); // Mensaje de error más detallado
