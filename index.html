@@ -91,15 +91,6 @@
         .container p {
             margin: 0;
         }
-
-        .hidden {
-            display: none;
-        }
-
-        .checkbox-group label {
-            display: inline-block;
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
@@ -111,74 +102,99 @@
         <label for="username">Nombre Completo:</label>
         <input type="text" id="username" name="username" placeholder="Ingresa tu nombre completo" required>
 
-        <label for="tipo-ingresos">Tipo de Ingresos:</label>
-        <select id="tipo-ingresos" name="tipo-ingresos" required>
-            <option value="">Seleccione una opción</option>
+        <label for="id-number">Cédula de Identidad:</label>
+        <input type="text" id="id-number" name="id-number" placeholder="Ingresa tu número de cédula" required>
+
+        <label for="address">Domicilio:</label>
+        <input type="text" id="address" name="address" placeholder="Ingresa tu domicilio" required>
+
+        <label for="coordinates">Coordenadas:</label>
+        <input type="text" id="coordinates" name="coordinates" placeholder="Ingresa tus coordenadas">
+
+        <label for="phone">Teléfono:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Ingresa tu número de teléfono" required>
+
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+
+        <label for="amount">Monto Solicitado:</label>
+        <input type="number" id="amount" name="amount" placeholder="Ingresa el monto solicitado" required>
+
+        <label for="term">Plazo (en meses):</label>
+        <input type="number" id="term" name="term" placeholder="Ingresa el plazo en meses" required>
+
+        <label for="interest">Interés Mensual (%):</label>
+        <input type="number" id="interest" name="interest" value="15" readonly>
+
+        <label for="income-type">Tipo de Ingresos:</label>
+        <select id="income-type" name="income-type" onchange="toggleIncomeFields()" required>
+            <option value="">Seleccione...</option>
             <option value="negocio">Negocio</option>
             <option value="asalariado">Asalariado</option>
         </select>
 
-        <div id="negocio-fields" class="hidden">
-            <label for="nombre-negocio">Nombre del Negocio:</label>
-            <input type="text" id="nombre-negocio" name="nombre-negocio">
+        <div id="business-fields" style="display:none;">
+            <label for="business-name">Nombre del Negocio:</label>
+            <input type="text" id="business-name" name="business-name">
 
-            <label for="direccion-negocio">Dirección del Negocio:</label>
-            <input type="text" id="direccion-negocio" name="direccion-negocio">
+            <label for="business-address">Dirección del Negocio:</label>
+            <input type="text" id="business-address" name="business-address">
 
-            <label for="telefono-negocio">Teléfono del Negocio:</label>
-            <input type="tel" id="telefono-negocio" name="telefono-negocio">
+            <label for="business-phone">Teléfono del Negocio:</label>
+            <input type="tel" id="business-phone" name="business-phone">
 
-            <label for="antiguedad-negocio">Antigüedad del Negocio (años):</label>
-            <input type="number" id="antiguedad-negocio" name="antiguedad-negocio">
+            <label for="business-age">Antigüedad del Negocio (años):</label>
+            <input type="number" id="business-age" name="business-age">
 
-            <label for="dia-bueno">Día Bueno C$:</label>
-            <input type="number" id="dia-bueno" name="dia-bueno">
-
-            <label for="dia-regular">Día Regular C$:</label>
-            <input type="number" id="dia-regular" name="dia-regular">
-
-            <label for="dia-malo">Día Malo C$:</label>
-            <input type="number" id="dia-malo" name="dia-malo">
-
-            <label for="tipo-negocio">Tipo de Negocio:</label>
-            <input type="text" id="tipo-negocio" name="tipo-negocio">
-
-            <label>Local del Negocio:</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="local-negocio" value="propio"> Propio</label>
-                <label><input type="checkbox" name="local-negocio" value="alquilado"> Alquilado</label>
-                <label><input type="checkbox" name="local-negocio" value="ambulante"> Ambulante</label>
-            </div>
+            <label>Tipo de Negocio:</label>
+            <select id="business-type" name="business-type">
+                <option value="propio">Propio</option>
+                <option value="alquilado">Alquilado</option>
+                <option value="ambulante">Ambulante</option>
+            </select>
         </div>
 
-        <div id="asalariado-fields" class="hidden">
-            <label for="nombre-empresa">Nombre de la Empresa:</label>
-            <input type="text" id="nombre-empresa" name="nombre-empresa">
+        <div id="employee-fields" style="display:none;">
+            <label for="company-name">Nombre de la Empresa:</label>
+            <input type="text" id="company-name" name="company-name">
 
-            <label for="direccion-empresa">Dirección de la Empresa:</label>
-            <input type="text" id="direccion-empresa" name="direccion-empresa">
+            <label for="company-address">Dirección de la Empresa:</label>
+            <input type="text" id="company-address" name="company-address">
 
-            <label for="cargo">Cargo que Ocupa:</label>
-            <input type="text" id="cargo" name="cargo">
+            <label for="job-title">Cargo que Ocupa:</label>
+            <input type="text" id="job-title" name="job-title">
 
-            <label for="salario">Salario Fijo Mensual:</label>
-            <input type="number" id="salario" name="salario">
+            <label for="monthly-salary">Salario Fijo Mensual:</label>
+            <input type="number" id="monthly-salary" name="monthly-salary">
 
-            <label for="antiguedad-laboral">Antigüedad Laboral (años):</label>
-            <input type="number" id="antiguedad-laboral" name="antiguedad-laboral">
+            <label for="work-years">Antigüedad Laboral (años):</label>
+            <input type="number" id="work-years" name="work-years">
 
-            <label for="soporte-salario">Soporte de Salario:</label>
-            <select id="soporte-salario" name="soporte-salario">
-                <option value="">Seleccione una opción</option>
-                <option value="colilla-inss">Colilla INSS</option>
-                <option value="carta-salarial">Carta Salarial</option>
+            <label for="salary-proof">Soporte de Salario:</label>
+            <select id="salary-proof" name="salary-proof">
+                <option value="inss">Colilla INSS</option>
+                <option value="letter">Carta Salarial</option>
             </select>
 
-            <label for="telefono-empresa">Teléfono de la Empresa:</label>
-            <input type="tel" id="telefono-empresa" name="telefono-empresa">
+            <label for="company-phone">Teléfono de la Empresa:</label>
+            <input type="tel" id="company-phone" name="company-phone">
 
-            <label for="jefe-inmediato">Nombre del Jefe Inmediato:</label>
-            <input type="text" id="jefe-inmediato" name="jefe-inmediato">
+            <label for="immediate-boss">Nombre del Jefe Inmediato:</label>
+            <input type="text" id="immediate-boss" name="immediate-boss">
+        </div>
+
+        <label for="message">Motivo del Préstamo:</label>
+        <textarea id="message" name="message" placeholder="Describe el motivo del préstamo" required></textarea>
+
+        <button type="button" onclick="calculateLoan()">Calcular</button>
+
+        <div id="results">
+            <p>Total Cuotas: <span id="total-installments">0</span></p>
+            <p>Interés Total: <span id="total-interest">0</span> C$</p>
+            <p>Total a Pagar: <span id="total-payment">0</span> C$</p>
+            <p>Cuota Semanal: <span id="weekly-installment">0</span> C$</p>
+            <p>Cuota Quincenal: <span id="biweekly-installment">0</span> C$</p>
+            <p>Cuota Mensual: <span id="monthly-installment">0</span> C$</p>
         </div>
 
         <button type="submit">Enviar Solicitud</button>
@@ -189,23 +205,37 @@
     </div>
 
     <script>
-        document.getElementById('tipo-ingresos').addEventListener('change', function() {
-            const negocioFields = document.getElementById('negocio-fields');
-            const asalariadoFields = document.getElementById('asalariado-fields');
+        function toggleIncomeFields() {
+            const incomeType = document.getElementById('income-type').value;
+            document.getElementById('business-fields').style.display = incomeType === 'negocio' ? 'block' : 'none';
+            document.getElementById('employee-fields').style.display = incomeType === 'asalariado' ? 'block' : 'none';
+        }
 
-            if (this.value === 'negocio') {
-                negocioFields.classList.remove('hidden');
-                asalariadoFields.classList.add('hidden');
-            } else if (this.value === 'asalariado') {
-                asalariadoFields.classList.remove('hidden');
-                negocioFields.classList.add('hidden');
-            } else {
-                negocioFields.classList.add('hidden');
-                asalariadoFields.classList.add('hidden');
-            }
-        });
+        // Scripts existentes
+        (function() {
+            emailjs.init("iJncNfz9C1aWPUdV4"); 
+        })();
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const term = parseInt(document.getElementById('term').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest').value) || 0;
+
+            const totalInstallments = term * 4;
+            const totalInterest = (amount * (interestRate / 100)) * term;
+            const totalPayment = amount + totalInterest;
+
+            const weeklyInstallment = totalPayment / totalInstallments;
+            const biweeklyInstallment = weeklyInstallment * 2;
+            const monthlyInstallment = weeklyInstallment * 4;
+
+            document.getElementById('total-installments').innerText = totalInstallments;
+            document.getElementById('total-interest').innerText = totalInterest.toFixed(2);
+            document.getElementById('total-payment').innerText = totalPayment.toFixed(2);
+            document.getElementById('weekly-installment').innerText = weeklyInstallment.toFixed(2);
+            document.getElementById('biweekly-installment').innerText = biweeklyInstallment.toFixed(2);
+            document.getElementById('monthly-installment').innerText = monthlyInstallment.toFixed(2);
+        }
     </script>
 </body>
 </html>
-
-
