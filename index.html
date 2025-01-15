@@ -158,6 +158,8 @@
                 <p>Total Cuotas: <span id="total-installments">0</span></p>
                 <p>Interés Total: <span id="total-interest">0</span></p>
                 <p>Total a Pagar: <span id="total-payment">0</span></p>
+                <p>Cuota Semanal: <span id="weekly-installment">0</span></p>
+                <p>Cuota Quincenal: <span id="biweekly-installment">0</span></p>
                 <p>Cuota Mensual: <span id="monthly-installment">0</span></p>
             </div>
 
@@ -177,14 +179,18 @@
             const term = parseInt(document.getElementById('term').value) || 0;
             const interestRate = parseFloat(document.getElementById('interest').value) || 0;
 
-            const totalInstallments = term * 4;
+            const totalInstallments = term * 4; // Cuotas semanales (4 semanas por mes)
             const totalInterest = (amount * (interestRate / 100)) * term;
             const totalPayment = amount + totalInterest;
-            const monthlyInstallment = totalPayment / term;
+            const weeklyInstallment = totalPayment / totalInstallments;
+            const biweeklyInstallment = weeklyInstallment * 2; // Cuota quincenal
+            const monthlyInstallment = weeklyInstallment * 4; // Cuota mensual
 
             document.getElementById('total-installments').innerText = totalInstallments;
             document.getElementById('total-interest').innerText = totalInterest.toFixed(2);
             document.getElementById('total-payment').innerText = totalPayment.toFixed(2);
+            document.getElementById('weekly-installment').innerText = weeklyInstallment.toFixed(2);
+            document.getElementById('biweekly-installment').innerText = biweeklyInstallment.toFixed(2);
             document.getElementById('monthly-installment').innerText = monthlyInstallment.toFixed(2);
         }
 
