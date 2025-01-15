@@ -157,13 +157,16 @@
             const term = parseInt(document.getElementById('term').value) || 0;
             const interestRate = parseFloat(document.getElementById('interest').value) || 0;
 
-            const totalInstallments = term * 4;
+            // Cálculos de las cuotas
+            const totalInstallments = term * 4;  // Cuotas semanales (4 por mes)
             const totalInterest = (amount * (interestRate / 100)) * term;
             const totalPayment = amount + totalInterest;
-            const weeklyInstallment = totalPayment / totalInstallments;
-            const biweeklyInstallment = weeklyInstallment * 2;
-            const monthlyInstallment = weeklyInstallment * 4;
 
+            const weeklyInstallment = totalPayment / totalInstallments;
+            const biweeklyInstallment = weeklyInstallment * 2;  // Cuota quincenal
+            const monthlyInstallment = weeklyInstallment * 4;  // Cuota mensual
+
+            // Mostrar los resultados en la interfaz
             document.getElementById('total-installments').innerText = totalInstallments;
             document.getElementById('total-interest').innerText = totalInterest.toFixed(2);
             document.getElementById('total-payment').innerText = totalPayment.toFixed(2);
@@ -175,6 +178,7 @@
         document.getElementById("loan-form").addEventListener("submit", function(event) {
             event.preventDefault();
 
+            // Enviar el formulario a través de EmailJS
             emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
                 .then(function(response) {
                     alert('Solicitud enviada con éxito: ' + response.status);
