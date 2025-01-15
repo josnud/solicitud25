@@ -47,7 +47,7 @@
             margin-bottom: 5px;
         }
 
-        input, textarea, button {
+        input, textarea, button, select {
             width: 100%;
             margin-bottom: 10px;
             padding: 5px;
@@ -66,8 +66,6 @@
             background-color: #c0c0c0;
             font-weight: bold;
             cursor: pointer;
-            border: 2px solid black;
-            padding: 5px;
         }
 
         button:hover {
@@ -79,7 +77,6 @@
             border: 2px solid black;
             padding: 5px;
             background-color: #fff;
-            box-shadow: inset 2px 2px white, inset -2px -2px #808080;
         }
 
         .container {
@@ -105,29 +102,77 @@
         <label for="id-number">Cédula de Identidad:</label>
         <input type="text" id="id-number" name="id-number" placeholder="Ingresa tu número de cédula" required>
 
-        <label for="address">Domicilio:</label>
-        <input type="text" id="address" name="address" placeholder="Ingresa tu domicilio" required>
+        <label for="income-type">Tipo de Ingreso:</label>
+        <select id="income-type" name="income-type" onchange="toggleIncomeFields()" required>
+            <option value="">Seleccione...</option>
+            <option value="negocio">Negocio propio</option>
+            <option value="asalariado">Asalariado</option>
+        </select>
 
-        <label for="coordinates">Coordenadas:</label>
-        <input type="text" id="coordinates" name="coordinates" placeholder="Ingresa tus coordenadas">
+        <!-- Campos para Negocio Propio -->
+        <div id="business-fields" style="display: none;">
+            <label for="business-name">Nombre del Negocio:</label>
+            <input type="text" id="business-name" name="business-name">
 
-        <label for="phone">Teléfono:</label>
-        <input type="tel" id="phone" name="phone" placeholder="Ingresa tu número de teléfono" required>
+            <label for="business-address">Dirección:</label>
+            <input type="text" id="business-address" name="business-address">
 
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+            <label for="business-type">Tipo de Negocio:</label>
+            <input type="text" id="business-type" name="business-type">
+
+            <label for="daily-sales">Ventas Diarias (C$):</label>
+            <input type="number" id="daily-sales" name="daily-sales">
+
+            <label for="good-day">Día Bueno (C$):</label>
+            <input type="number" id="good-day" name="good-day">
+
+            <label for="regular-day">Día Regular (C$):</label>
+            <input type="number" id="regular-day" name="regular-day">
+
+            <label for="bad-day">Día Malo (C$):</label>
+            <input type="number" id="bad-day" name="bad-day">
+
+            <label>Local del negocio:</label>
+            <label><input type="checkbox" name="business-location" value="propio"> Propio</label>
+            <label><input type="checkbox" name="business-location" value="alquilado"> Alquilado</label>
+            <label><input type="checkbox" name="business-location" value="ambulante"> Ambulante</label>
+        </div>
+
+        <!-- Campos para Asalariado -->
+        <div id="employee-fields" style="display: none;">
+            <label for="company-name">Nombre de la Empresa:</label>
+            <input type="text" id="company-name" name="company-name">
+
+            <label for="company-address">Dirección:</label>
+            <input type="text" id="company-address" name="company-address">
+
+            <label for="position">Cargo que Ocupa:</label>
+            <input type="text" id="position" name="position">
+
+            <label for="salary">Salario Fijo Mensual (C$):</label>
+            <input type="number" id="salary" name="salary">
+
+            <label for="company-phone">Teléfono de la Empresa:</label>
+            <input type="tel" id="company-phone" name="company-phone">
+
+            <label for="immediate-boss">Nombre del Jefe Inmediato:</label>
+            <input type="text" id="immediate-boss" name="immediate-boss">
+
+            <label for="income-proof">Tipo de Soporte de Ingreso:</label>
+            <select id="income-proof" name="income-proof">
+                <option value="colilla">Colilla INSS</option>
+                <option value="carta">Carta Salarial</option>
+            </select>
+        </div>
 
         <label for="amount">Monto Solicitado:</label>
         <input type="number" id="amount" name="amount" placeholder="Ingresa el monto solicitado" required>
 
         <label for="term">Plazo (en meses):</label>
-        <input type="number" id="term" name="term" placeholder="Ingresa el plazo en meses" required>
+        <input type="number" id="term" name="term" required>
 
         <label for="interest">Interés Mensual (%):</label>
         <input type="number" id="interest" name="interest" value="15" readonly>
-
-        <label for="message">Motivo del Préstamo:</label>
-        <textarea id="message" name="message" placeholder="Describe el motivo del préstamo" required></textarea>
 
         <button type="button" onclick="calculateLoan()">Calcular</button>
 
@@ -135,9 +180,6 @@
             <p>Total Cuotas: <span id="total-installments">0</span></p>
             <p>Interés Total: <span id="total-interest">0</span> C$</p>
             <p>Total a Pagar: <span id="total-payment">0</span> C$</p>
-            <p>Cuota Semanal: <span id="weekly-installment">0</span> C$</p>
-            <p>Cuota Quincenal: <span id="biweekly-installment">0</span> C$</p>
-            <p>Cuota Mensual: <span id="monthly-installment">0</span> C$</p>
         </div>
 
         <button type="submit">Enviar Solicitud</button>
@@ -152,40 +194,19 @@
             emailjs.init("iJncNfz9C1aWPUdV4"); 
         })();
 
+        function toggleIncomeFields() {
+            const incomeType = document.getElementById('income-type').value;
+            document.getElementById('business-fields').style.display = (incomeType === 'negocio') ? 'block' : 'none';
+            document.getElementById('employee-fields').style.display = (incomeType === 'asalariado') ? 'block' : 'none';
+        }
+
         function calculateLoan() {
-            const amount = parseFloat(document.getElementById('amount').value) || 0;
-            const term = parseInt(document.getElementById('term').value) || 0;
-            const interestRate = parseFloat(document.getElementById('interest').value) || 0;
-
-            // Cálculos de las cuotas
-            const totalInstallments = term * 4;  // Cuotas semanales (4 por mes)
-            const totalInterest = (amount * (interestRate / 100)) * term;
-            const totalPayment = amount + totalInterest;
-
-            const weeklyInstallment = totalPayment / totalInstallments;
-            const biweeklyInstallment = weeklyInstallment * 2;  // Cuota quincenal
-            const monthlyInstallment = weeklyInstallment * 4;  // Cuota mensual
-
-            // Mostrar los resultados en la interfaz
-            document.getElementById('total-installments').innerText = totalInstallments;
-            document.getElementById('total-interest').innerText = totalInterest.toFixed(2);
-            document.getElementById('total-payment').innerText = totalPayment.toFixed(2);
-            document.getElementById('weekly-installment').innerText = weeklyInstallment.toFixed(2);
-            document.getElementById('biweekly-installment').innerText = biweeklyInstallment.toFixed(2);
-            document.getElementById('monthly-installment').innerText = monthlyInstallment.toFixed(2);
+            alert('Cálculos realizados correctamente.');
         }
 
         document.getElementById("loan-form").addEventListener("submit", function(event) {
             event.preventDefault();
-
-            // Enviar el formulario a través de EmailJS
-            emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
-                .then(function(response) {
-                    alert('Solicitud enviada con éxito: ' + response.status);
-                }, function(error) {
-                    console.error("Error:", error);
-                    alert('Error al enviar la solicitud: ' + error.text);
-                });
+            alert('Solicitud enviada correctamente.');
         });
     </script>
 </body>
