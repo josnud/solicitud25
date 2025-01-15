@@ -17,192 +17,181 @@
             background-color: #000080;
             color: white;
             text-align: center;
-            padding: 10px 0;
-            margin: 0 0 20px;
-            border: 2px solid black;
+            padding: 5px 0;
+            margin: 0;
             font-size: 18px;
+            border: 2px solid black;
         }
 
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+        .logo {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .logo img {
+            max-width: 150px;
+        }
+
+        form {
             background-color: #e0e0e0;
             border: 2px solid black;
+            padding: 15px;
+            max-width: 450px;
+            margin: 0 auto;
             box-shadow: 3px 3px #808080;
         }
 
         label {
-            font-weight: bold;
             display: block;
+            font-weight: bold;
             margin-bottom: 5px;
         }
 
-        input, select, textarea, button {
+        input, textarea, select, button {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid black;
-            border-radius: 2px;
-            background-color: #ffffff;
-            font-size: 14px;
+            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 12px;
+            border: 2px solid black;
+            box-shadow: inset 2px 2px white, inset -2px -2px #808080;
+            background-color: #fff;
         }
 
         textarea {
             resize: none;
-            height: 100px;
+            height: 80px;
         }
 
         button {
-            background-color: #000080;
-            color: white;
-            font-size: 14px;
+            background-color: #c0c0c0;
             font-weight: bold;
-            border: none;
             cursor: pointer;
+            border: 2px solid black;
+            padding: 5px;
         }
 
         button:hover {
-            background-color: #3333cc;
+            background-color: #a0a0a0;
         }
 
-        .hidden {
+        .dynamic-fields {
             display: none;
         }
 
-        #results p {
-            font-size: 14px;
+        #results {
+            font-size: 12px;
+            border: 2px solid black;
+            padding: 5px;
+            background-color: #fff;
+            box-shadow: inset 2px 2px white, inset -2px -2px #808080;
+        }
+
+        .container {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+        .container p {
+            margin: 0;
         }
     </style>
 </head>
 <body>
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+    </div>
     <h1>Formulario de Solicitud de Préstamo</h1>
-    <div class="form-container">
-        <form id="loan-form">
-            <label for="username">Nombre Completo:</label>
-            <input type="text" id="username" name="username" required>
+    <form id="loan-form">
+        <label for="username">Nombre Completo:</label>
+        <input type="text" id="username" name="username" placeholder="Ingresa tu nombre completo" required>
 
-            <label for="id-number">Cédula de Identidad:</label>
-            <input type="text" id="id-number" name="id-number" required>
+        <label for="id-number">Cédula de Identidad:</label>
+        <input type="text" id="id-number" name="id-number" placeholder="Ingresa tu número de cédula" required>
 
-            <label for="phone">Teléfono:</label>
-            <input type="tel" id="phone" name="phone" required>
+        <label for="phone">Teléfono:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Ingresa tu número de teléfono" required>
 
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
 
-            <label for="income-type">Tipo de Ingreso:</label>
-            <select id="income-type" name="income-type" onchange="toggleIncomeFields()" required>
-                <option value="">Seleccionar...</option>
-                <option value="Negocio propio">Negocio propio</option>
-                <option value="Asalariado">Asalariado</option>
-            </select>
+        <label for="income-type">Tipo de Ingreso:</label>
+        <select id="income-type" name="income-type" onchange="showIncomeFields()" required>
+            <option value="">Selecciona</option>
+            <option value="Negocio propio">Negocio propio</option>
+            <option value="Asalariado">Asalariado</option>
+        </select>
 
-            <!-- Campos adicionales para Negocio propio -->
-            <div id="business-fields" class="hidden">
-                <label for="business-name">Nombre del Negocio:</label>
-                <input type="text" id="business-name" name="business-name">
+        <div id="business-fields" class="dynamic-fields">
+            <label for="business-name">Nombre del negocio:</label>
+            <input type="text" id="business-name" name="business-name">
 
-                <label for="business-type">Tipo de Negocio:</label>
-                <input type="text" id="business-type" name="business-type">
+            <label for="business-type">Tipo de negocio:</label>
+            <input type="text" id="business-type" name="business-type">
 
-                <label for="business-address">Dirección del Negocio:</label>
-                <input type="text" id="business-address" name="business-address">
+            <label for="business-address">Dirección del negocio:</label>
+            <input type="text" id="business-address" name="business-address">
 
-                <label for="business-age">Antigüedad del Negocio (años):</label>
-                <input type="number" id="business-age" name="business-age">
+            <label for="business-age">Antigüedad (en años):</label>
+            <input type="number" id="business-age" name="business-age">
 
-                <label for="business-income">Ganancias Mensuales:</label>
-                <input type="number" id="business-income" name="business-income">
-            </div>
+            <label for="business-income">Ganancias mensuales:</label>
+            <input type="number" id="business-income" name="business-income">
+        </div>
 
-            <!-- Campos adicionales para Asalariado -->
-            <div id="salary-fields" class="hidden">
-                <label for="company-name">Empresa donde Trabaja:</label>
-                <input type="text" id="company-name" name="company-name">
+        <div id="employee-fields" class="dynamic-fields">
+            <label for="company-name">Empresa donde trabaja:</label>
+            <input type="text" id="company-name" name="company-name">
 
-                <label for="company-address">Dirección de la Empresa:</label>
-                <input type="text" id="company-address" name="company-address">
+            <label for="company-address">Dirección de la empresa:</label>
+            <input type="text" id="company-address" name="company-address">
 
-                <label for="job-title">Cargo que Ocupa:</label>
-                <input type="text" id="job-title" name="job-title">
+            <label for="job-title">Cargo que ocupa:</label>
+            <input type="text" id="job-title" name="job-title">
 
-                <label for="fixed-salary">Salario Fijo Mensual:</label>
-                <input type="number" id="fixed-salary" name="fixed-salary">
+            <label for="fixed-salary">Salario fijo mensual:</label>
+            <input type="number" id="fixed-salary" name="fixed-salary">
 
-                <label for="income-support">Soporte de Ingreso:</label>
-                <input type="text" id="income-support" name="income-support">
+            <label for="income-support">Soporte de ingreso:</label>
+            <input type="text" id="income-support" name="income-support">
 
-                <label for="immediate-boss">Nombre del Jefe Inmediato:</label>
-                <input type="text" id="immediate-boss" name="immediate-boss">
+            <label for="immediate-boss">Nombre del jefe inmediato:</label>
+            <input type="text" id="immediate-boss" name="immediate-boss">
 
-                <label for="company-phone">Teléfono de la Empresa:</label>
-                <input type="tel" id="company-phone" name="company-phone">
-            </div>
+            <label for="company-phone">Teléfono de la empresa:</label>
+            <input type="tel" id="company-phone" name="company-phone">
+        </div>
 
-            <label for="amount">Monto Solicitado:</label>
-            <input type="number" id="amount" name="amount" required>
+        <label for="message">Motivo del Préstamo:</label>
+        <textarea id="message" name="message" placeholder="Describe el motivo del préstamo" required></textarea>
 
-            <label for="term">Plazo (en meses):</label>
-            <input type="number" id="term" name="term" required>
+        <button type="submit">Enviar Solicitud</button>
+    </form>
 
-            <label for="interest">Interés Mensual (%):</label>
-            <input type="number" id="interest" name="interest" value="15" readonly>
-
-            <label for="message">Motivo del Préstamo:</label>
-            <textarea id="message" name="message" required></textarea>
-
-            <button type="button" onclick="calculateLoan()">Calcular Cuotas</button>
-
-            <div id="results">
-                <p>Total Cuotas: <span id="total-installments">0</span></p>
-                <p>Interés Total: <span id="total-interest">0</span></p>
-                <p>Total a Pagar: <span id="total-payment">0</span></p>
-                <p>Cuota Semanal: <span id="weekly-installment">0</span></p>
-                <p>Cuota Quincenal: <span id="biweekly-installment">0</span></p>
-                <p>Cuota Mensual: <span id="monthly-installment">0</span></p>
-            </div>
-
-            <button type="submit">Enviar Solicitud</button>
-        </form>
+    <div class="container">
+        <p>&copy; Credipay2025. Todos los derechos reservados.</p>
     </div>
 
     <script>
-        function toggleIncomeFields() {
-            const incomeType = document.getElementById('income-type').value;
-            document.getElementById('business-fields').classList.toggle('hidden', incomeType !== 'Negocio propio');
-            document.getElementById('salary-fields').classList.toggle('hidden', incomeType !== 'Asalariado');
+        (function() {
+            emailjs.init("iJncNfz9C1aWPUdV4"); 
+        })();
+
+        function showIncomeFields() {
+            const incomeType = document.getElementById("income-type").value;
+            document.getElementById("business-fields").style.display = incomeType === "Negocio propio" ? "block" : "none";
+            document.getElementById("employee-fields").style.display = incomeType === "Asalariado" ? "block" : "none";
         }
 
-        function calculateLoan() {
-            const amount = parseFloat(document.getElementById('amount').value) || 0;
-            const term = parseInt(document.getElementById('term').value) || 0;
-            const interestRate = parseFloat(document.getElementById('interest').value) || 0;
-
-            const totalInstallments = term * 4; // Cuotas semanales (4 semanas por mes)
-            const totalInterest = (amount * (interestRate / 100)) * term;
-            const totalPayment = amount + totalInterest;
-            const weeklyInstallment = totalPayment / totalInstallments;
-            const biweeklyInstallment = weeklyInstallment * 2; // Cuota quincenal
-            const monthlyInstallment = weeklyInstallment * 4; // Cuota mensual
-
-            document.getElementById('total-installments').innerText = totalInstallments;
-            document.getElementById('total-interest').innerText = totalInterest.toFixed(2);
-            document.getElementById('total-payment').innerText = totalPayment.toFixed(2);
-            document.getElementById('weekly-installment').innerText = weeklyInstallment.toFixed(2);
-            document.getElementById('biweekly-installment').innerText = biweeklyInstallment.toFixed(2);
-            document.getElementById('monthly-installment').innerText = monthlyInstallment.toFixed(2);
-        }
-
-        document.getElementById('loan-form').addEventListener('submit', function (event) {
+        document.getElementById("loan-form").addEventListener("submit", function(event) {
             event.preventDefault();
 
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                .then(function () {
-                    alert('Solicitud enviada con éxito.');
-                }, function (error) {
-                    alert('Error al enviar la solicitud. Intenta de nuevo.');
-                    console.error('EmailJS Error:', error);
+            emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
+                .then(function(response) {
+                    alert('Solicitud enviada con éxito: ' + response.status);
+                }, function(error) {
+                    console.error("Error:", error);
+                    alert('Error al enviar la solicitud: ' + error.text);
                 });
         });
     </script>
