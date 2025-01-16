@@ -1,5 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
+<style>
+    body {
+        font-family: "Tahoma", sans-serif;
+        background-color: #c0c0c0;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        background-color: #000080;
+        color: white;
+        text-align: center;
+        padding: 5px 0;
+        margin: 0;
+        font-size: 18px;
+        border: 2px solid black;
+    }
+
+    .logo {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    .logo img {
+        max-width: 150px;
+    }
+
+    form {
+        background-color: #e0e0e0;
+        border: 2px solid black;
+        padding: 15px;
+        max-width: 450px;
+        margin: 0 auto;
+        box-shadow: 3px 3px #808080;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input, textarea, button {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 5px;
+        font-size: 12px;
+        border: 2px solid black;
+        box-shadow: inset 2px 2px white, inset -2px -2px #808080;
+        background-color: #fff;
+    }
+
+    textarea {
+        resize: none;
+        height: 80px;
+    }
+
+    button {
+        background-color: #c0c0c0;
+        font-weight: bold;
+        cursor: pointer;
+        border: 2px solid black;
+        padding: 5px;
+    }
+
+    button:hover {
+        background-color: #a0a0a0;
+    }
+
+    #results {
+        font-size: 12px;
+        border: 2px solid black;
+        padding: 5px;
+        background-color: #fff;
+        box-shadow: inset 2px 2px white, inset -2px -2px #808080;
+    }
+
+    .container {
+        text-align: center;
+        font-size: 12px;
+        margin-top: 15px;
+    }
+
+    .container p {
+        margin: 0;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
