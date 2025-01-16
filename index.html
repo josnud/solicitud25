@@ -133,8 +133,6 @@
 
     <div id="results">
         <p>Total Cuotas: <span id="total-installments">0</span></p>
-        <p>Interés Total: <span id="total-interest">0</span> C$</p>
-        <p>Total a Pagar: <span id="total-payment">0</span> C$</p>
         <p>Cuota Semanal: <span id="weekly-installment">0</span> C$</p>
         <p>Cuota Quincenal: <span id="biweekly-installment">0</span> C$</p>
         <p>Cuota Mensual: <span id="monthly-installment">0</span> C$</p>
@@ -161,16 +159,14 @@
         const totalInterest = (amount * (interestRate / 100)) * term;
         const totalPayment = amount + totalInterest;
 
-        const weeklyInstallment = totalPayment / totalInstallments;
-        const biweeklyInstallment = weeklyInstallment * 2; // Cuota quincenal
-        const monthlyInstallment = weeklyInstallment * 4; // Cuota mensual
+        const weeklyInstallment = Math.ceil(totalPayment / totalInstallments);
+        const biweeklyInstallment = Math.ceil(weeklyInstallment * 2); // Cuota quincenal
+        const monthlyInstallment = Math.ceil(weeklyInstallment * 4); // Cuota mensual
 
         document.getElementById('total-installments').innerText = totalInstallments;
-        document.getElementById('total-interest').innerText = totalInterest.toFixed(2);
-        document.getElementById('total-payment').innerText = totalPayment.toFixed(2);
-        document.getElementById('weekly-installment').innerText = weeklyInstallment.toFixed(2);
-        document.getElementById('biweekly-installment').innerText = biweeklyInstallment.toFixed(2);
-        document.getElementById('monthly-installment').innerText = monthlyInstallment.toFixed(2);
+        document.getElementById('weekly-installment').innerText = weeklyInstallment;
+        document.getElementById('biweekly-installment').innerText = biweeklyInstallment;
+        document.getElementById('monthly-installment').innerText = monthlyInstallment;
     }
 
     document.getElementById("loan-form").addEventListener("submit", function(event) {
