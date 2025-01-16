@@ -183,7 +183,7 @@
             // Enviar el formulario a través de EmailJS
             emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
                 .then(function(response) {
-                    alert('Solicitud enviada con éxito: ' + response.status);
+                    alert('Solicitud enviada con éxito, plazo estimado de respuesta a tu solicitud es de 24 a 48 Horas ' + response.status);
                 }, function(error) {
                     console.error("Error:", error);
                     alert('Error al enviar la solicitud: ' + error.text);
