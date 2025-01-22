@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitud de Préstamo</title>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <style>
         body {
             font-family: "Tahoma", sans-serif;
@@ -124,21 +124,10 @@
     <label for="term">Plazo (en meses):</label>
     <input type="number" step="0.1" id="term" name="term" placeholder="Ingresa el plazo en meses" required>
 
-    <input type="hidden" id="interest" name="interest" value="17">
-
     <label for="message">Motivo del Préstamo:</label>
     <textarea id="message" name="message" placeholder="Describe el motivo del préstamo" required></textarea>
 
-    <button type="button" onclick="calculateLoan()">Calcular</button>
-
-    <div id="results">
-        <p>Total Cuotas: <span id="total-installments">0</span></p>
-        <p>Cuota Semanal: <span id="weekly-installment">0</span> C$</p>
-        <p>Cuota Quincenal: <span id="biweekly-installment">0</span> C$</p>
-        <p>Cuota Mensual: <span id="monthly-installment">0</span> C$</p>
-    </div>
-
-    <button type="submit">Enviar Solicitud</button>
+    <button type="button" onclick="downloadFormAsPDF()">Descargar como PDF</button>
 </form>
 
 <div class="container">
@@ -146,39 +135,38 @@
 </div>
 
 <script>
-    (function() {
-        emailjs.init("iJncNfz9C1aWPUdV4");
-    })();
+    function downloadFormAsPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-    function calculateLoan() {
-        const amount = parseFloat(document.getElementById('amount').value) || 0;
-        const term = parseFloat(document.getElementById('term').value) || 0; // Permite decimales
-        const interestRate = parseFloat(document.getElementById('interest').value) || 0;
+        // Capturar los datos del formulario
+        const username = document.getElementById('username').value;
+        const idNumber = document.getElementById('id-number').value;
+        const address = document.getElementById('address').value;
+        const occupation = document.getElementById('coordinates').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const amount = document.getElementById('amount').value;
+        const term = document.getElementById('term').value;
+        const message = document.getElementById('message').value;
 
-        const totalInstallments = term * 4; // Total de cuotas (decimales permitidos)
-        const totalInterest = (amount * (interestRate / 100)) * term;
-        const totalPayment = amount + totalInterest;
+        // Agregar contenido al PDF
+        doc.setFont("Helvetica", "normal");
+        doc.text("Formulario de Solicitud de Préstamo", 10, 10);
+        doc.text(`Nombre Completo: ${username}`, 10, 20);
+        doc.text(`Cédula de Identidad: ${idNumber}`, 10, 30);
+        doc.text(`Domicilio: ${address}`, 10, 40);
+        doc.text(`Ocupación Actual: ${occupation}`, 10, 50);
+        doc.text(`Teléfono: ${phone}`, 10, 60);
+        doc.text(`Correo Electrónico: ${email}`, 10, 70);
+        doc.text(`Monto Solicitado: ${amount}`, 10, 80);
+        doc.text(`Plazo (en meses): ${term}`, 10, 90);
+        doc.text("Motivo del Préstamo:", 10, 100);
+        doc.text(message, 10, 110);
 
-        const weeklyInstallment = Math.ceil(totalPayment / totalInstallments);
-        const biweeklyInstallment = Math.ceil(weeklyInstallment * 2);
-        const monthlyInstallment = Math.ceil(weeklyInstallment * 4);
-
-        document.getElementById('total-installments').innerText = totalInstallments.toFixed(1);
-        document.getElementById('weekly-installment').innerText = weeklyInstallment;
-        document.getElementById('biweekly-installment').innerText = biweeklyInstallment;
-        document.getElementById('monthly-installment').innerText = monthlyInstallment;
+        // Guardar el PDF
+        doc.save("Solicitud_Prestamo.pdf");
     }
-
-    document.getElementById("loan-form").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        emailjs.sendForm('service_lwq2sam', 'template_9d8hsok', this)
-            .then(function(response) {
-                alert('Solicitud enviada con éxito. Plazo estimado de respuesta: 24 a 48 horas.');
-            }, function(error) {
-                alert('Error al enviar la solicitud: ' + error.text);
-            });
-    });
 </script>
 </body>
 </html>
